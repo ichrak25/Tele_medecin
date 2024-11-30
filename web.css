@@ -1,0 +1,156 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #fff;
+}
+.title{
+align-items: center;
+display: flex;
+
+}
+.material-symbols-outlined{
+    color: #ff4081 ;
+    text-shadow: 0 0 12px #00bcd4;
+    font-size: 100px;
+    transform: scale(2);
+    padding-left: 15px;
+    padding-bottom: 7px;
+    animation: fadeIn 4s ease-out;
+
+
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #003366, #00bcd4); /* Futuristic gradient */
+    color: #fff;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-content {
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 3rem; /* Large, futuristic font size */
+    margin-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cta-btn {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.primary-cta {
+    background-color: #ff4081; /* Vibrant pink */
+    color: white;
+    border: 2px solid #ff4081;
+}
+
+.primary-cta:hover {
+    background-color: transparent;
+    color: #ff4081;
+}
+
+.secondary-cta {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.secondary-cta:hover {
+    background-color: white;
+    color: #00bcd4; /* Light cyan for secondary CTA */
+}
+
+/* Background image */
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://cdn.futura-sciences.com/cdn-cgi/image/width=1920,quality=50,format=auto/sources/Telemedecine__c__ra2_studio_-_Fotolia.com.jpg'); /* Hero image */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 1;
+}
+h2{
+    font-size: 3rem; /* Large, futuristic font size */
+    margin-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-left: 35%;
+    color: #ff4081 ;
+  }
+h2 {
+    animation: fadeIn 4s ease-out;
+  }
+  .id{
+    font-family: "Parisienne", cursive;
+    font-weight: 400;
+    font-size: 90px;
+    font-style: normal;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0; /* Le texte est invisible au début */
+      transform: translateY(20px); /* Le texte est légèrement décalé vers le bas au début */
+    }
+    100% {
+      opacity: 1; /* Le texte devient complètement visible */
+      transform: translateY(0); /* Le texte se positionne normalement */
+    }
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

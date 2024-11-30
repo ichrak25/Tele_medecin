@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemedicine</title>
+    <link rel="stylesheet" href="web.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=ecg_heart" />
+<script>
+     var TxtRotate = function(el, toRotate, period) {
+    this.toRotate = toRotate;
+    this.el = el;
+    this.loopNum = 0;
+    this.period = parseInt(period, 10) || 1000; // Pause très courte entre les phrases
+    this.txt = '';
+    this.tick();
+    this.isDeleting = false;
+};
+
+TxtRotate.prototype.tick = function() {
+    var i = this.loopNum % this.toRotate.length;
+    var fullTxt = this.toRotate[i];
+
+    // Mise à jour du texte
+    if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+    } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+    }
+
+    // Insérer le texte dans l'élément
+    this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+    var that = this;
+
+    // Réduction drastique des temps
+    var delta = this.isDeleting ? 50 : 100; // Vitesse : 50ms pour effacement, 100ms pour écriture
+
+    // Pause après avoir affiché une phrase complète
+    if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period; // Pause très courte avant effacement
+        this.isDeleting = true;
+    } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 200; // Pause entre deux phrases
+    }
+
+    // Appeler tick() après un délai
+    setTimeout(function() {
+        that.tick();
+    }, delta);
+};
+
+window.onload = function() {
+    var elements = document.getElementsByClassName('txt-rotate');
+    for (var i = 0; i < elements.length; i++) {
+        var toRotate = elements[i].getAttribute('data-rotate');
+        var period = elements[i].getAttribute('data-period');
+        if (toRotate) {
+            new TxtRotate(elements[i], JSON.parse(toRotate), period);
+        }
+    }
+    // Injecter du CSS pour le curseur
+    var css = document.createElement("style");
+    css.type = "text/css";
+    css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666; }";
+    document.body.appendChild(css);
+};
+
+  </script>
+  
+</head>
+<body>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Connecting Patients with Doctors, Anytime, Anywhere</h1>
+        <p>
+            <span
+          class="txt-rotate"
+          data-period="10"
+          data-rotate='[ "Access healthcare at the tip of your fingers. Consult with medical professionals remotely and securely." ]'></span>
+          </p>
+          
+        <div class="cta-buttons">
+            <!-- Primary Call-to-Action -->
+            <a href="login.html" class="cta-btn primary-cta">Get Started</a>
+            <!-- Secondary Call-to-Action -->
+            <a href="home.html" class="cta-btn secondary-cta">Learn More</a>
+        </div>
+        <div class="title">
+            <h2><b> <b class="id"> Vita</b>CARE  </b></h2> <div class="material-symbols-outlined">
+                ecg_heart
+            </div>
+        </div>
+    </div>
+    
+    <!-- Background Image (could be a telemedicine consultation) -->
+    <div class="hero-bg"></div>
+</section>
+
+<!-- Footer Section (Optional) -->
+<footer>
+    <p>&copy; 2024 Telemedicine. All rights reserved.</p>
+</footer>
+
+<script src="/js/app.js"></script> <!-- Your JavaScript file (if needed) -->
+</body>
+</html>
+
+
