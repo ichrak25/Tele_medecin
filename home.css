@@ -1,4 +1,4 @@
-/* Start Global Rules  rose#ff4081   bleu#00bcd4    backececec  */
+/* Start Global Rules  rose#ff4081   bleu #00bcd4    back #ececec  */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1304,7 +1304,7 @@ ul {
   position : absolute;
   top: -5%;
 left: 20%;
-margin-left: 2%;
+margin-left: 13.25%;
 font-family: 'Arial', sans-serif;
 color: #ff4081;
 transform: translate(-50%, -50%);
@@ -1416,7 +1416,7 @@ left: 20%;
 font-family: 'Arial', sans-serif;
 color: #ff4081;
 left: 35%;
-margin-left: -3%;
+margin-left: 1%;
 transform: translate(-50%, -50%);
 }
 .S2{
@@ -1532,7 +1532,7 @@ transform: translate(-50%, -50%);
 .S3 h3 {
   top: -5%;
   left: 20%;
-  margin-left: 2%;
+  margin-left: -27%;
   font-family: 'Arial', sans-serif;
   color: #ff4081;
 position : absolute;
