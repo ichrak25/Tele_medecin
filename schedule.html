@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Calendar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f9f9f9;
+      overflow-x: hidden;
+    }
+
+    .calendar {
+      min-width: 300px;
+    }
+
+    .calendar td {
+      padding: 10px 0 !important;
+      min-width: 35px;
+    }
+
+    .calendar-wrap .btn-link {
+      color: #fff;
+    }
+
+    .calendar .btn-link {
+      color: #fff;
+      text-decoration: none !important;
+      border-radius: 50%;
+      min-width: 35px;
+      font-size: 0.85rem;
+    }
+
+    .calendar .btn-link:hover, .calendar .btn-link.active {
+      background-color: #00bcd4; /* Blue hover */
+      color: #222;
+      border: 2px solid #00bcd4; /* Blue border */
+    }
+
+    .btn-group .btn {
+      font-size: 0.85rem;
+    }
+
+    select.form-control {
+      font-size: 0.85rem;
+    }
+
+    .d-grid.gap-2 button {
+      font-size: 0.85rem;
+    }
+
+    h1, h5 {
+      font-size: 1.25rem;
+      color: #ff4081; /* Rose color */
+    }
+
+    .btn-outline-secondary.active {
+      background-color: #ff4081; /* Rose active */
+      color: white;
+      border-color: #ff4081; /* Rose border */
+    }
+
+    img {
+      border-radius: 100px;
+      height: 110px;
+      width: 110px;
+    }
+
+    .card {
+      border-radius: 8px;
+    }
+
+    .card-body {
+      background-color: #ffffff;
+    }
+
+    .btn-link {
+      color: #00bcd4; /* Blue color */
+    }
+
+    .btn-outline-dark {
+      color: #00bcd4; /* Blue button text */
+      border-color: #00bcd4; /* Blue border */
+    }
+
+    .btn-outline-dark:hover {
+      background-color: #00bcd4; /* Blue background on hover */
+      color: white;
+    }
+
+    .container {
+      max-width: 1200px;
+    }
+
+    .stars {
+      color: #ff4081; /* Rose color for stars */
+      font-size: 1rem;
+    }
+
+    .stars span {
+      margin-right: 5px;
+    }
+
+    /* Blue button */
+    .btn-confirm {
+      background-color: #00bcd4;
+      color: white;
+      border-color: #00bcd4;
+      font-size: 1rem;
+    }
+
+    .btn-confirm:hover {
+      background-color: #0097a7;
+    }
+
+    /* New confirmation interface (small modal) */
+    .confirmation-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Dim the background */
+      z-index: 1050;
+    }
+
+    .confirmation-modal {
+      background-color: #fff;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 500px;
+      margin: 100px auto;
+      padding: 20px;
+      text-align: center;
+      z-index: 1100;
+    }
+
+    .confirmation-modal h3 {
+      color: #00bcd4;
+    }
+
+    .confirmation-modal p {
+      font-size: 1rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1 class="text-center mt-5 mb-5">Schedule a Meeting</h1>
+
+  <!-- Select Specialty -->
+  <div class="mb-3">
+    <label for="specialty" class="form-label">Select Specialty</label>
+    <select class="form-control" id="specialty">
+      <option>Cardiology</option>
+      <option>Dermatology</option>
+      <option>Pediatrics</option>
+      <option>Neurology</option>
+      <!-- Add more specialties as needed -->
+    </select>
+  </div>
+
+  <!-- Select Doctor -->
+  <div class="mb-3">
+    <label for="doctor" class="form-label">Select Doctor</label>
+    <select class="form-control" id="doctor">
+      <!-- Doctors with ratings -->
+      <option value="doctor1" data-stars="5">Dr. John Doe <span class="stars">★★★★★</span></option>
+      <option value="doctor2" data-stars="4">Dr. Jane Smith <span class="stars">★★★★☆</span></option>
+      <option value="doctor3" data-stars="4">Dr. Robert Brown <span class="stars">★★★★☆</span></option>
+      <option value="doctor4" data-stars="3">Dr. Alice White <span class="stars">★★★☆☆</span></option>
+      <!-- Add more doctors with ratings -->
+    </select>
+  </div>
+
+  <div class="card shadow border-0">
+    <div class="card-body p-0">
+      <div class="row">
+        <div class="col-md-6 p-4 bg-dark text-white">
+          <div class="text-center calendar-wrap">
+            <img src="med3.jpg" alt="">
+            <h5 class="mt-3">Dr. Name&Surname</h5>
+            <h5 style="margin:15px 0;">
+              <button class="btn btn-link prev-month"><i class="fa-solid fa-angle-left text-white"></i></button>
+              <span class="current-month"></span>
+              <button class="btn btn-link next-month"><i class="fa-solid fa-angle-right text-white"></i></button>
+            </h5>
+            <div class="table-responsive">
+              <table class="calendar table table-borderless align-middle text-center text-white">
+                <thead>
+                  <tr>
+                    <th>SUN</th>
+                    <th>MON</th>
+                    <th>TUE</th>
+                    <th>WED</th>
+                    <th>THU</th>
+                    <th>FRI</th>
+                    <th>SAT</th>
+                  </tr>
+                </thead>
+                <tbody id="calendar-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 p-4">
+          <h5 class="card-title">How long do you need?</h5>
+          <div class="btn-group" style="width:100%" role="group" aria-label="">
+            <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
+            <label class="btn btn-outline-dark" for="vbtn-radio1">15 Minutes</label>
+            <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
+            <label class="btn btn-outline-dark" for="vbtn-radio2">30 Minutes</label>
+            <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
+            <label class="btn btn-outline-dark" for="vbtn-radio3">1 Hour</label>
+          </div>
+          <br /><br />
+          <h5 class="card-title">What time works best?</h5>
+          <select class="form-control select2">
+            <option>UTC +01:00 Tunisia Time</option>
+            <option>UTC -08:00 Arizona Time (US & Canada)</option>
+          </select>
+          <br /><br />
+          <div class="d-grid gap-2" style="overflow:auto;max-height:300px;">
+            <button type="button" class="btn btn-outline-secondary" onclick="highlightTime(this)">9:00 AM</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="highlightTime(this)">9:15 AM</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="highlightTime(this)">9:30 AM</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="highlightTime(this)">9:45 AM</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="highlightTime(this)">10:00 AM</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="highlightTime(this)">10:15 AM</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="highlightTime(this)">10:30 AM</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="highlightTime(this)">10:45 AM</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="highlightTime(this)">11:00 AM</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="highlightTime(this)">12:00 PM</button>
+          </div>
+          <br /><br />
+          <!-- Confirm Button -->
+          <button class="btn btn-confirm" onclick="showConfirmation()">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="confirmation-overlay" id="confirmation-overlay">
+    <div class="confirmation-modal">
+      <h3>Success!</h3>
+      <p>You have successfully scheduled a consultation with Dr. John Doe.</p>
+      <p><strong>Date:</strong> December 10, 2024</p>
+      <p><strong>Time:</strong> 9:00 AM UTC +01:00 Tunisia Time</p>
+      <p><strong>Specialty:</strong> Cardiology</p>
+      <p>We look forward to your consultation. If you need to reschedule, please contact us.</p>
+      <button class="btn btn-confirm" onclick="closeConfirmation()">Close</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Function to show the confirmation modal
+  function showConfirmation() {
+    document.getElementById('confirmation-overlay').style.display = 'block';
+  }
+
+  // Function to close the confirmation modal
+  function closeConfirmation() {
+    document.getElementById('confirmation-overlay').style.display = 'none';
+  }
+
+  const currentDate = new Date();
+  let selectedDate = null;
+
+  function renderCalendar(date) {
+    const calendarBody = document.getElementById('calendar-body');
+    const currentMonth = document.querySelector('.current-month');
+
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    currentMonth.textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+
+    calendarBody.innerHTML = "";
+
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+    const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+
+    let dayCount = 1;
+    for (let i = 0; i < 6; i++) {
+      const row = document.createElement('tr');
+
+      for (let j = 0; j < 7; j++) {
+        const cell = document.createElement('td');
+        if (i === 0 && j < firstDay || dayCount > daysInMonth) {
+          cell.innerHTML = '<button class="btn btn-link disabled"></button>';
+        } else {
+          const button = document.createElement('button');
+          button.className = 'btn btn-link';
+          button.textContent = dayCount;
+          button.onclick = function () {
+            highlightDate(button);
+          };
+          if (selectedDate && selectedDate.getDate() === dayCount && selectedDate.getMonth() === date.getMonth() && selectedDate.getFullYear() === date.getFullYear()) {
+            button.classList.add('active');
+          }
+          cell.appendChild(button);
+          dayCount++;
+        }
+        row.appendChild(cell);
+      }
+      calendarBody.appendChild(row);
+      if (dayCount > daysInMonth) break;
+    }
+  }
+
+  function highlightDate(button) {
+    const allButtons = document.querySelectorAll('.calendar .btn-link');
+    allButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+    selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+    console.log("Selected Date:", selectedDate.toDateString());
+  }
+
+  function highlightTime(selectedButton) {
+    const allTimeButtons = document.querySelectorAll('.d-grid.gap-2 button');
+    allTimeButtons.forEach(button => button.classList.remove('active'));
+    selectedButton.classList.add('active');
+  }
+
+  document.querySelector('.prev-month').addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar(currentDate);
+  });
+
+  document.querySelector('.next-month').addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar(currentDate);
+  });
+
+  renderCalendar(currentDate);
+</script>
+
+</body>
+</html>
