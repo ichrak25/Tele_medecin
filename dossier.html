@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Dossier</title>
+  <link rel="stylesheet" href="dossier.css">
+</head>
+<body>
+  <div class="container">
+    <div class="overlay"></div>
+    
+    <!-- Header Section -->
+    <header class="header">
+      <h1 class="title">Medical Dossier</h1>
+    </header>
+    
+    <!-- Personal Information Section -->
+    <section class="section personal-info">
+      <h2>Personal Information</h2>
+      <div class="info-item"><strong>Name:</strong> John Doe</div>
+      <div class="info-item"><strong>Date of Birth:</strong> January 1, 1985</div>
+      <div class="info-item"><strong>Gender:</strong> Male</div>
+      <div class="info-item"><strong>Contact:</strong> +1 (123) 456-7890</div>
+    </section>
+
+    <!-- Ordonnances (Prescriptions) Section -->
+    <section class="section ordonnances">
+      <h2>Les Ordonnances</h2>
+      <div class="info-item"><strong>Prescription 1:</strong> Amoxicillin (500 mg, 3 times a day for 7 days)</div>
+      <div class="info-item"><strong>Prescription 2:</strong> Paracetamol (500 mg, as needed for pain)</div>
+      <div class="info-item"><strong>Prescription 3:</strong> Ibuprofen (200 mg, twice a day after meals)</div>
+    </section>
+
+    <!-- Emergency Contacts Section -->
+    <section class="section emergency-contacts">
+      <h2>Emergency Contacts</h2>
+      <div class="info-item"><strong>Name:</strong> Jane Doe</div>
+      <div class="info-item"><strong>Relationship:</strong> Sister</div>
+      <div class="info-item"><strong>Contact:</strong> +1 (987) 654-3210</div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+    </footer>
+  </div>
+
+  <script>
+    // Intersection Observer to trigger scroll animation
+    const sections = document.querySelectorAll('.section');
+
+    const observerOptions = {
+      threshold: 0.3, // Trigger the effect when 30% of the section is visible
+    };
+
+    const observerCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
